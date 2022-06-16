@@ -2,9 +2,7 @@ package com.felixwc.publish.eden.blog.service.cloud;
 
 import com.alibaba.alicloud.sms.ISmsService;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
-import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
-import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.exceptions.ServerException;
+import com.felixwc.publish.eden.blog.utils.RandomUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * in order to learn java!
@@ -28,10 +24,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @Getter
 @Setter
 @Slf4j
-public class AlibabaSMSService {
+public class AlibabaSMSServiceImpl implements SmsService {
 
-    // 为生成验证码准备数组
-    private static final String codeString="0123456789qwertyuiopasdfghjklzxcvbnmZXCVBNMASDFGHJKLQWERTYUIOP";
 
     /**
      * 阿里云的短信服务
@@ -49,18 +43,23 @@ public class AlibabaSMSService {
     @Value("${spring.cloud.alicloud.sms.template-code:}")
     private String templateCode;
 
-    public AlibabaSMSService(ISmsService smsService) {
+    public AlibabaSMSServiceImpl(ISmsService smsService) {
         this.smsService = smsService;
     }
 
     @Autowired
     @Lazy
-    private AlibabaSMSService alibabaSMSService;
-    @Cacheable(value = "M1Cache",key = "#number")
+    private AlibabaSMSServiceImpl alibabaSMSServiceImpl;
+
+    @Override
     public String sendValidatedCode(String number,int codeLength){
-        String code=generateCode(codeLength);
-        alibabaSMSService.sendCodeToOneNumber(code,number);
-        return code;
+        String code= RandomUtils.generateCode(codeLength);
+
+        String anotherCode = null;
+        synchronized (number){
+           anotherCode = alibabaSMSServiceImpl.sendCodeToOneNumber(code,number);
+        }
+        return code==anotherCode?code:null;
     }
 
 
@@ -72,7 +71,8 @@ public class AlibabaSMSService {
      * @Description //TODO 给一个号码发送验证码
      * @Date 16:16 2022/6/15
      **/
-    private SendSmsResponse sendCodeToOneNumber(String code, String number) {
+    @Cacheable(value = "M1Cache",key = "#number")
+    public String sendCodeToOneNumber(String code, String number) {
         log.info(code+number);
         SendSmsRequest request = new SendSmsRequest();
         // Required:the mobile number
@@ -83,23 +83,13 @@ public class AlibabaSMSService {
         request.setTemplateCode(templateCode);
         // Required:The param of sms template.For exmaple, if the template is "Hello,your verification code is ${code}". The param should be like following value
         request.setTemplateParam("{\"code\":\"" + code + "\"}");
-        SendSmsResponse sendSmsResponse = null;
         try {
-            sendSmsResponse = smsService.sendSmsRequest(request);
-        } catch (ServerException e) {
-            throw new RuntimeException(e);
-        } catch (ClientException e) {
-            throw new RuntimeException(e);
+             smsService.sendSmsRequest(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            code=null;
         }
-        return sendSmsResponse;
+        return code;
     }
-    private String generateCode(int codeLength){
-        StringBuilder stringBuilder = new StringBuilder();
-        int length = codeString.length();
-        for (int i=0;i<codeLength;i++) {
-            int index = ThreadLocalRandom.current().nextInt(length);
-            stringBuilder.append(codeString.charAt(index));
-        }
-        return stringBuilder.toString();
-    }
+
 }

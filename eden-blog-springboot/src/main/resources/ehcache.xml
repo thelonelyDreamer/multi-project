@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <!--
         磁盘存储:将缓存中暂时不使用的对象,转移到硬盘,类似于Windows系统的虚拟内存
@@ -13,7 +12,7 @@
         绝对路径（如：d:\\ehcache）
         查看路径方法：String tmpDir = System.getProperty("java.io.tmpdir");
      -->
-    <diskStore path="java.io.tmpdir" />
+    <diskStore path="user.home/cache" />
 
     <!--
         defaultCache:默认的缓存配置信息,如果不加特殊说明,则所有对象按照此配置项处理

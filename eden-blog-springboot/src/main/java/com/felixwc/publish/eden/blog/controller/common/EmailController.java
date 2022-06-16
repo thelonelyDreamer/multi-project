@@ -7,4 +7,5 @@ package com.felixwc.publish.eden.blog.controller.common;
  * @author felixwc
  */
 public class EmailController {
+
 }

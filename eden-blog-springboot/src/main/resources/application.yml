@@ -35,9 +35,16 @@ spring:
       sms:
         sign-name: ENC(cOF013Nd8nlzzPPzdVxDpCU4zLT+VX/8)
         template-code: ENC(c1ny7JDTZ67HXvMBJIdQtoPYSB5hc5wT)
+  mail:
+    username: ENC(lhdxaEOUwznwDwGklXOiCccC12qSs5dokp7Fky0bRUU=)
+    password: ENC(xsf7arywrC+YWEGgmWjMTi6lVyGwXnevHFqp7FWsUU0=)
+    host: ENC(Y3Hy8Db9sk0WGgq+WCRKogvGw1Rfgqk7)
+    port: 25
 mybatis:
   type-aliases-package: com.felixwc.publish.eden.blog.pojo.data
   mapper-locations: classpath:mapper/*.xml
+
+
 
 
 
