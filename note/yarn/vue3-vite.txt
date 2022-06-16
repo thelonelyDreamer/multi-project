@@ -1,0 +1,2 @@
+yarn add --save axios vue-router@4 vuex@next echarts element-plus
+yarn add -D @types/node unplugin-vue-components unplugin-auto-import sass

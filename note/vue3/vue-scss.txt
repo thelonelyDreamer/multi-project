@@ -1,0 +1,4 @@
+yarn add sass
+
+在main.ts 中导入 全局样式
+import './assets/styles/index.scss'

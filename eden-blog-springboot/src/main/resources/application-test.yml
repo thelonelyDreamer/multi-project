@@ -1,0 +1,11 @@
+## 用于测试加密算法 只在测试类中使用
+jacyptp:
+  name: ENC(gZYLkU42Z2Ur5RI+GrLosQ==)
+jasypt:
+  encryptor:
+    password: ####自己设置
+    # 加密算法 使用默认值 秘钥在虚拟参数中指定
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+

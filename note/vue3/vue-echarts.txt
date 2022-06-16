@@ -1,0 +1,5 @@
+安装使用即可
+不能全局注册
+yarn add echarts
+
+在mounted 方法中使用

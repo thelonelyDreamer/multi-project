@@ -1,0 +1,43 @@
+# 本配置的秘钥文件在dev.yml中，不予上传
+server:
+  port: 12345
+spring:
+  application:
+    name: eden-dev
+  profiles:
+    active: dev
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+      username: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      password: ENC(UXCcsKrfZbuIPdWeRUmIrt/b7BVABZS0)
+      stat-view-servlet:
+        enabled: true
+        login-username: druid
+        login-password: druid
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:ehcache.xml
+  security:
+    user:
+      name: root
+      password: root
+      roles: admin,dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    alicloud:
+      access-key: ENC(JPEYi3a1ie01vTq0oRgEML8DIime0xfme/qOr0Sgtsu70S39UEpQHg==)
+      secret-key: ENC(X/hUZHQkS0s4C4RPw50jE+7N7vEbru3jE1Jmhq5cqDdPrJC46or+RA==)
+      sms:
+        sign-name: ENC(cOF013Nd8nlzzPPzdVxDpCU4zLT+VX/8)
+        template-code: ENC(c1ny7JDTZ67HXvMBJIdQtoPYSB5hc5wT)
+mybatis:
+  type-aliases-package: com.felixwc.publish.eden.blog.pojo.data
+  mapper-locations: classpath:mapper/*.xml
+
+
+

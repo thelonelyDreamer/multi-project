@@ -1,0 +1,7 @@
+axios 需要一定的技巧来安装
+
+export default{
+	install:{
+	这里两个函数
+}
+}
