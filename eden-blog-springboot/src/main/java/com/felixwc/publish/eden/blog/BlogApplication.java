@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @EnableAsync
 public class BlogApplication {
-
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(BlogApplication.class, args);
     }
