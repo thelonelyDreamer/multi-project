@@ -57,4 +57,13 @@
 		   overflowToDisk="true"
 		   memoryStoreEvictionPolicy="LRU"
 	/>
+	<cache name="M15Cache"
+		   maxElementsInMemory="10000"
+		   eternal="false"
+		   timeToIdleSeconds="900"
+		   timeToLiveSeconds="900"
+		   maxElementsOnDisk="10000000"
+		   overflowToDisk="true"
+		   memoryStoreEvictionPolicy="LRU"
+	/>
 </ehcache>

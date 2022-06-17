@@ -7,7 +7,8 @@ package com.felixwc.publish.eden.blog.enums;
  * @author felixwc
  */
 public enum CacheName {
-    ONE_MINUTE_CACHE("M1Cache");
+    ONE_MINUTE_CACHE("M1Cache"),
+    FIFTEEN_MINUTE_CACHE("M15Cache");
     private String cacheName;
 
     CacheName(String cacheName) {

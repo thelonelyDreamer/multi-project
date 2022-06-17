@@ -1,5 +1,7 @@
 package com.felixwc.publish.eden.blog.pojo.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,14 +13,20 @@ import java.util.Date;
  * @author felixwc
  */
 @Data
+@ApiModel(value = "commonResult",description = "common returned type")
 public class CommonResult<T> {
+
+    @ApiModelProperty(value = "请求返回的系统状态码")
     private String code;
+    @ApiModelProperty("返回的数据")
     private T data;
-    private Date date;
+    @ApiModelProperty("返回的时间")
+    private Date time;
+    @ApiModelProperty("返回的消息")
     private String msg;
 
     public CommonResult() {
-        this.date=new Date();
+        this.time=new Date();
     }
 
     public CommonResult(String code) {

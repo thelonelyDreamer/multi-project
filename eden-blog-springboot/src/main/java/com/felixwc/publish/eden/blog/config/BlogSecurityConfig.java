@@ -17,5 +17,8 @@ public class BlogSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.formLogin();
+        http.authorizeHttpRequests()
+                .antMatchers("/swagger-ui/**","/druid/**")
+                .hasAnyRole("admin","dev");
     }
 }

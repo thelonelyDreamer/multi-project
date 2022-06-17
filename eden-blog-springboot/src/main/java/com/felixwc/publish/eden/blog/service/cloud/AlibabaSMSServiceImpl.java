@@ -16,8 +16,9 @@ import org.springframework.stereotype.Service;
  * in order to learn java!
  * created at 2022/6/15 14:55
  * 短信发送功能
- *
+ * <p>
  * 这个类还存在的问题：模板参数是硬编码，可以调整，
+ *
  * @author felixwc
  */
 @Service
@@ -25,7 +26,6 @@ import org.springframework.stereotype.Service;
 @Setter
 @Slf4j
 public class AlibabaSMSServiceImpl implements SmsService {
-
 
     /**
      * 阿里云的短信服务
@@ -52,28 +52,34 @@ public class AlibabaSMSServiceImpl implements SmsService {
     private AlibabaSMSServiceImpl alibabaSMSServiceImpl;
 
     @Override
-    public String sendValidatedCode(String number,int codeLength){
-        String code= RandomUtils.generateCode(codeLength);
+    public String sendValidatedCode(String number, int codeLength) {
+        String code = RandomUtils.generateCode(codeLength);
 
         String anotherCode = null;
-        synchronized (number){
-           anotherCode = alibabaSMSServiceImpl.sendCodeToOneNumber(code,number);
+        synchronized (number) {
+            anotherCode = alibabaSMSServiceImpl.sendCodeToOneNumber(code, number);
         }
-        return code==anotherCode?code:null;
+        //  如果发送失败，返回null
+        // 如果已经发送，返回""
+        if (!code.equals(anotherCode)) {
+            anotherCode = "";
+        }
+
+        return anotherCode;
     }
 
 
     /**
-     * @param code 验证码
+     * @param code   验证码
      * @param number 手机号码
      * @return com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse
      * @Author felixwc
      * @Description //TODO 给一个号码发送验证码
      * @Date 16:16 2022/6/15
      **/
-    @Cacheable(value = "M1Cache",key = "#number")
+    @Cacheable(value = "M1Cache", key = "#number", unless = "null == #result")
     public String sendCodeToOneNumber(String code, String number) {
-        log.info(code+number);
+        log.info(code + number);
         SendSmsRequest request = new SendSmsRequest();
         // Required:the mobile number
         request.setPhoneNumbers(number);
@@ -84,10 +90,10 @@ public class AlibabaSMSServiceImpl implements SmsService {
         // Required:The param of sms template.For exmaple, if the template is "Hello,your verification code is ${code}". The param should be like following value
         request.setTemplateParam("{\"code\":\"" + code + "\"}");
         try {
-             smsService.sendSmsRequest(request);
+            smsService.sendSmsRequest(request);
         } catch (Exception e) {
             e.printStackTrace();
-            code=null;
+            code = null;
         }
         return code;
     }

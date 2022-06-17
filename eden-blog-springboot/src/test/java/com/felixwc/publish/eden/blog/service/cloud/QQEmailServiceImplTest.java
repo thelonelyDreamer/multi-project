@@ -15,7 +15,7 @@ import java.util.concurrent.Future;
 
 @SpringBootTest
 class QQEmailServiceImplTest{
-    public static long TIME_ONE_MINUTE = 1000*60;
+    public static long TIME_FIFTEEN_MINUTE = 1000*60*15;
     public static long DISCREPANCY=100;
 
     @Autowired
@@ -44,14 +44,15 @@ class QQEmailServiceImplTest{
     void sentCodeByEmailUsingCacheTest() {
         assert Objects.nonNull(toEmailAddress);
         int codeLength=6;
-        Cache m1Cache = cacheManager.getCache(CacheName.ONE_MINUTE_CACHE.getCacheName());
+        Cache m15Cache = cacheManager.getCache(CacheName.FIFTEEN_MINUTE_CACHE.getCacheName());
+        assert Objects.nonNull(m15Cache);
         for (int i = 0; i < 10; i++) {
-            m1Cache.evictIfPresent(toEmailAddress.intern());
+            m15Cache.evictIfPresent(toEmailAddress.intern());
             String code1 = qqEmailService.sentCodeByEmailUsingCache(toEmailAddress, codeLength);
             long end1 = System.currentTimeMillis();
             String code2 = qqEmailService.sentCodeByEmailUsingCache(toEmailAddress, codeLength);
             long end2 = System.currentTimeMillis();
-            assert end2 - end1 >= TIME_ONE_MINUTE + DISCREPANCY || code1.equals(code2);
+            assert end2 - end1 >= TIME_FIFTEEN_MINUTE + DISCREPANCY || code1.equals(code2);
         }
     }
 }
