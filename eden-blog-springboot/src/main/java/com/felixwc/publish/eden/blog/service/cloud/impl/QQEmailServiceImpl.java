@@ -1,5 +1,6 @@
-package com.felixwc.publish.eden.blog.service.cloud;
+package com.felixwc.publish.eden.blog.service.cloud.impl;
 
+import com.felixwc.publish.eden.blog.service.cloud.EmailService;
 import com.felixwc.publish.eden.blog.utils.RandomUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -41,10 +41,17 @@ spring:
     host: ENC(Y3Hy8Db9sk0WGgq+WCRKogvGw1Rfgqk7)
     port: 25
 mybatis:
-  type-aliases-package: com.felixwc.publish.eden.blog.pojo.data
-  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.felixwc.publish.eden.blog.pojo
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
 
 
-
+felix:
+  jwt:
+    secret: asdffsfsdf
+    head: Authorization
+    prefix: Bearer
+    token-remain-time: 15
 
 

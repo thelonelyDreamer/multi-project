@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.felixwc.publish.eden.blog.mapper.security.SecurityUserMapper">
+    <resultMap id="user-role" type="com.felixwc.publish.eden.blog.pojo.security.SecurityUser">
+        <id javaType="long" jdbcType="BIGINT" property="id" column="id"></id>
+        <result javaType="string" jdbcType="VARCHAR" property="username" column="username"></result>
+        <result javaType="string" jdbcType="VARCHAR" property="password" column="password"></result>
+        <collection property="roles" ofType="com.felixwc.publish.eden.blog.pojo.security.SecurityRole">
+            <id javaType="java.lang.Integer" jdbcType="INTEGER" property="id" column="role_id"></id>
+            <result javaType="string" jdbcType="VARCHAR" property="name" column="role_name"></result>
+        </collection>
+    </resultMap>
+
+    <select id="obtainSecurityUserByName" resultType="securityUser">
+        select sys_user_id as id, sys_user_name as username, sys_user_password as password
+        from sys_user
+        where sys_user_name = #{username}
+    </select>
+    <select id="obtainSecurityUserByNameWithRole"
+            resultMap="user-role">
+        SELECT t1.sys_user_id       AS id,
+               t1.sys_user_name     AS username,
+               t1.sys_user_password AS password,
+               t3.sys_role_id       AS role_id,
+               t3.sys_role_name     AS role_name
+        FROM sys_user t1
+                 JOIN sys_uesr_role t2 ON t1.sys_user_id = t2.sys_user_id
+                 JOIN sys_role t3 ON t2.sys_role_id = t3.sys_role_id
+        WHERE t1.sys_user_name = #{username}
+    </select>
+</mapper>

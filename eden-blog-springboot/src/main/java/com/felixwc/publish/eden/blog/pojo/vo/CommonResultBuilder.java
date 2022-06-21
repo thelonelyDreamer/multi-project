@@ -15,6 +15,10 @@ import java.util.Date;
 public class CommonResultBuilder<T> {
     private CommonResult<T> commonResult;
 
+    public CommonResultBuilder() {
+        commonResult = new CommonResult<>();
+    }
+
     /**
      * @return com.felixwc.publish.eden.blog.pojo.vo.CommonResult
      * @author felixwc
@@ -74,7 +78,7 @@ public class CommonResultBuilder<T> {
      * @date 11:52 2022/6/17
      **/
     public static <R> CommonResult<R> defaultFail(String code, String msg) {
-        return new CommonResult<>(code,msg);
+        return new CommonResult<>(code, msg);
     }
 
 
@@ -84,9 +88,8 @@ public class CommonResultBuilder<T> {
      * @Description //TODO 获取构建者
      * @Date 20:42 2022/6/16
      **/
-    public CommonResultBuilder<T> startBuilder() {
-        this.commonResult = new CommonResult<>();
-        return this;
+    public static <R> CommonResultBuilder startBuilder() {
+        return new CommonResultBuilder<R>();
     }
 
     /**
@@ -130,7 +133,7 @@ public class CommonResultBuilder<T> {
      * @description //TODO 设置要传入的消息
      * @date 10:26 2022/6/17
      **/
-    public CommonResultBuilder<T> setData(T data) {
+    public CommonResultBuilder setData(T data) {
         commonResult.setData(data);
         return this;
     }

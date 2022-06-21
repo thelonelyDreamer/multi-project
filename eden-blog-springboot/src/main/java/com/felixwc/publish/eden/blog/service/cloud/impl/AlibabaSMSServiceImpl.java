@@ -1,7 +1,8 @@
-package com.felixwc.publish.eden.blog.service.cloud;
+package com.felixwc.publish.eden.blog.service.cloud.impl;
 
 import com.alibaba.alicloud.sms.ISmsService;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
+import com.felixwc.publish.eden.blog.service.cloud.SmsService;
 import com.felixwc.publish.eden.blog.utils.RandomUtils;
 import lombok.Getter;
 import lombok.Setter;

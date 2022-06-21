@@ -7,6 +7,8 @@ package com.felixwc.publish.eden.blog.enums;
  * @author felixwc
  */
 public enum CacheName {
+    /* 永不过期的key */
+    DURABLE_CACHE("DurableCache"),
     ONE_MINUTE_CACHE("M1Cache"),
     FIFTEEN_MINUTE_CACHE("M15Cache");
     private String cacheName;

@@ -53,7 +53,7 @@ public class SmsController {
         String code = smsService.sendValidatedCode(phoneNumber, codeLength);
 
         // 3. 根据业务方法返回结果
-        CommonResultBuilder<String> resultBuilder = new CommonResultBuilder<String>().startBuilder();
+        CommonResultBuilder<String> resultBuilder = new CommonResultBuilder<>();
         // 如果结果未发送成功
         if (Objects.isNull(code)) {
             log.info("phone is validated but fail to send");

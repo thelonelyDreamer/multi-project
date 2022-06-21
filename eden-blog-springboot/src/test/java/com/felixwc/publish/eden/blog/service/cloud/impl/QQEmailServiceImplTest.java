@@ -1,6 +1,7 @@
-package com.felixwc.publish.eden.blog.service.cloud;
+package com.felixwc.publish.eden.blog.service.cloud.impl;
 
 import com.felixwc.publish.eden.blog.enums.CacheName;
+import com.felixwc.publish.eden.blog.service.cloud.impl.QQEmailServiceImpl;
 import com.felixwc.publish.eden.blog.utils.CompareUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

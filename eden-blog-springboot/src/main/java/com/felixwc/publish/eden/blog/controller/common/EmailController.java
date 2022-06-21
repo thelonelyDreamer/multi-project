@@ -35,22 +35,21 @@ public class EmailController {
     @ApiOperation(value = "用邮箱获取验证码")
     @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "form")
     public CommonResult<String> obtainEmailCode(@RequestParam() String email) throws AddressException {
+        log.info("start to validate email address");
         // 如果邮箱不合法
         new InternetAddress(email).validate();
+        log.info("email address is valid");
         // 如果邮箱合法
         emailService.sentCodeByEmail(email, CODE_LENGTH);
         //返回结果
         CommonResultBuilder<String> resultBuilder = new CommonResultBuilder<>();
-        resultBuilder.startBuilder()
-                .setCode(EmailState.SUCCESS.getCode())
-                .setMessage(EmailState.SUCCESS.getDescription());
+        resultBuilder.setCode(EmailState.SUCCESS.getCode()).setMessage(EmailState.SUCCESS.getDescription());
         return resultBuilder.build();
     }
 
 
     @ExceptionHandler({AddressException.class})
-    public CommonResult addressExceptionHandle(){
-        return CommonResultBuilder
-                .defaultFail(EmailState.ERROR_EMAIL.getCode(), EmailState.ERROR_EMAIL.getDescription());
+    public CommonResult addressExceptionHandle() {
+        return CommonResultBuilder.defaultFail(EmailState.ERROR_EMAIL.getCode(), EmailState.ERROR_EMAIL.getDescription());
     }
 }

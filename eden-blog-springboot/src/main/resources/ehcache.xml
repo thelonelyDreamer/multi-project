@@ -66,4 +66,13 @@
 		   overflowToDisk="true"
 		   memoryStoreEvictionPolicy="LRU"
 	/>
+
+	<cache name="DurableCache"
+		   maxElementsInMemory="10000"
+		   eternal="true"
+		   maxElementsOnDisk="10000000"
+		   overflowToDisk="true"
+		   memoryStoreEvictionPolicy="LRU"
+	/>
+
 </ehcache>

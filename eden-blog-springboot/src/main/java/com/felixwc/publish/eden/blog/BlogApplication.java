@@ -6,6 +6,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 @SpringBootApplication
 @EnableCaching
@@ -14,5 +15,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 public class BlogApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(BlogApplication.class, args);
+        for (String s : context.getBeanNamesForType(OncePerRequestFilter.class)) {
+            System.out.println(s);
+        }
+
     }
 }

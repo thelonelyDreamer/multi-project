@@ -1,5 +1,6 @@
-package com.felixwc.publish.eden.blog.service.cloud;
+package com.felixwc.publish.eden.blog.service.cloud.impl;
 
+import com.felixwc.publish.eden.blog.service.cloud.impl.AlibabaSMSServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

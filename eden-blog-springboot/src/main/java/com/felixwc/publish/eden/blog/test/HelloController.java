@@ -24,6 +24,10 @@ import javax.annotation.security.PermitAll;
 @RestController
 @RequestMapping("test")
 public class HelloController {
+    @GetMapping("/hello/default")
+    public String sayHello0() {
+        return "default";
+    }
     @GetMapping("/hello/hello")
     @PermitAll
     public String sayHello() {
