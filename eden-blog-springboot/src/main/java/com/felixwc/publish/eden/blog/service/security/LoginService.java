@@ -7,5 +7,14 @@ package com.felixwc.publish.eden.blog.service.security;
  * @author felixwc
  */
 public interface LoginService {
-    String obtainJwt(String username,String password);
+    /**
+     * @param username - 用户名
+     * @param password - 密码
+     * @return 令牌
+     * @return java.lang.String
+     * @author felixwc
+     * @description //TODO 根据用户名和密码获取jwt令牌
+     * @date 20:59 2022/7/4
+     **/
+    String obtainJwt(String username, String password);
 }

@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.TimeZone;
 
 /**
  * in order to learn java!
@@ -34,6 +36,7 @@ public class JacksonConfig {
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //日期格式处理
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS"));
+        objectMapper.setTimeZone(TimeZone.getTimeZone(ZoneId.of("Asia/Shanghai")));
         return objectMapper;
     }
     // 可以定义其他的序列化对象
