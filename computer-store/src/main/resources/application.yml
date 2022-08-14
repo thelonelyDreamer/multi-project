@@ -1,0 +1,7 @@
+server:
+  port: 12345
+  servlet:
+    context-path: /store
+spring:
+  profiles:
+    active: dev
