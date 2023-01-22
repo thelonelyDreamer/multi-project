@@ -2,7 +2,7 @@ package com.felixwc.publish.eden.blog.config;
 
 import com.felixwc.publish.eden.blog.enums.CacheName;
 import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,13 +15,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SpringCacheConfig {
-
-    private final CacheManager cacheManager;
-
-    public SpringCacheConfig(CacheManager cacheManager) {
-        this.cacheManager = cacheManager;
+    @Bean
+    public EhCacheCacheManager ehCacheCacheManager(){
+        return new EhCacheCacheManager();
     }
-
 
     /**
      * @return org.springframework.cache.Cache
@@ -30,7 +27,7 @@ public class SpringCacheConfig {
      * @date 12:56 2022/6/19
      **/
     @Bean("durableCache")
-    public Cache durableCache() {
+    public Cache durableCache(EhCacheCacheManager cacheManager) {
         return cacheManager.getCache(CacheName.DURABLE_CACHE.getCacheName());
     }
 
